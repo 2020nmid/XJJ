@@ -1,0 +1,189 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.verifycode {
+    display: none;
+    position: absolute;
+    top: -234px;
+    left: 71px;
+    width: 270px;
+    height: 346px;
+    background-color: #fff;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, .3);
+    cursor: default;
+}
+
+.verifycode .words {
+    height: 42px;
+    line-height: 42px;
+    padding-left: 6px;
+    font-size: 14px;
+    cursor: default;
+}
+
+.verifycode .words div:first-child {
+    float: left;
+    display: block;
+    width: 120px;
+    height: 42px;
+    line-height: 42px;
+}
+
+.verifycode .words span {
+    color: #539FFE;
+}
+
+.verifycode .words .wordimg {
+    float: right;
+    margin-right: 20px;
+    display: block;
+    background: url(img2.jpg) no-repeat 0 -345px;
+    width: 110px;
+    height: 42px;
+}
+
+.verifycode .images {
+    position: relative;
+    height: 260px;
+    margin: 0 6px;
+    background: url(img2.jpg) no-repeat 0 0;
+    background-size: 260px;
+    overflow: hidden;
+}
+
+.verifycode .images ul {
+    position: absolute;
+    height: 260px;
+    width: 258px;
+    overflow: hidden;
+}
+
+@keyframes updown {
+    0% {
+        bottom: -28px;
+    }
+
+    25% {
+        bottom: 0px;
+    }
+
+    75% {
+        bottom: 0px;
+    }
+
+    100% {
+        bottom: -28px;
+    }
+}
+
+.verifycode .images .fail,
+.verifycode .images .vic {
+    position: absolute;
+    bottom: -28px;
+    width: 258px;
+    height: 28px;
+    background-color: #DE715B;
+    color: #fff;
+    font-size: 16px;
+    line-height: 28px;
+    padding-left: 9px;
+    animation: updown ease 2s;
+}
+
+.verifycode .images .vic {
+    background-color: #5EBF70;
+}
+
+.verifycode .verify {
+    height: 45px;
+    padding: 0 6px;
+    line-height: 45px;
+}
+
+.verifycode .verify div {
+    float: left;
+}
+
+.verifycode .verify div>span {
+    position: relative;
+    top: -2px;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    color: #7E7E7E;
+    border: 2px solid #7E7E7E;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 12px;
+    cursor: pointer;
+}
+
+.verifycode .verify div .close {
+    margin-left: 6px;
+    margin-right: 12px;
+}
+
+.verifycode .verify div .warn {
+    display: none;
+    position: absolute;
+    top: -33px;
+    left: 8px;
+    width: 59px;
+    height: 22px;
+    border-radius: 2px;
+    background-color: #5F5F5F;
+    font-size: 8px;
+    color: #fff;
+    text-align: center;
+    line-height: 22px;
+}
+
+.verifycode .verify div .warn::after {
+    position: absolute;
+    bottom: -14px;
+    left: 0;
+    content: '';
+    height: 0;
+    width: 0;
+    border-width: 9px 11px 6px 0px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: #5F5F5F;
+}
+
+.verifycode .verify div:last-child {
+    float: right;
+    width: 95px;
+    height: 33px;
+    background-color: #539FFE;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 2px;
+    line-height: 33px;
+    margin: 6px 0;
+    cursor: pointer;
+}
+
+.verifycode .verify div:last-child:hover {
+    background-color: #4995F5;
+}
+
+.num {
+    position: absolute;
+    display: block;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    color: #fff;
+    border: 3px solid #fff;
+    background-color: #539FFE;
+    text-align: center;
+    line-height: 20px;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 0 7px 3px rgba(0, 0, 0, .4);
+}

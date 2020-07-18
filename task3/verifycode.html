@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="varifycode.css">
+</head>
+
+<body>
+    <div class="verifycode">
+        <div class="words">
+            <div>请在下图<span>依次</span>点击:</div>
+            <div class="wordimg"></div>
+        </div>
+        <div class="images">
+            <ul></ul>
+            <div id="fail"></div>
+            <div id="vic"></div>
+        </div>
+        <div class="verify">
+            <div>
+                <span class="close">x
+                    <span class="warn">关闭验证</span>
+                </span>
+                <span class="refresh">o
+                    <span class="warn">刷新验证</span>
+                </span>
+            </div>
+            <div id="ok">确认</div>
+        </div>
+    </div>
+
+    <script>
+        var words = document.querySelector('.words');
+        words.addEventListener('selectstart', function (e) {
+            e.preventDefault();
+        })
+        var verify = document.querySelector('.verify');
+        var closerefresh = verify.children[0].children;
+        for (var i = 0; i < closerefresh.length; i++) {
+            closerefresh[i].addEventListener('mouseover', function () {
+                this.childNodes[1].style.display = 'block';
+                this.style.color = '#585858';
+                this.style.borderColor = '#585858';
+            })
+        }
+        for (var i = 0; i < closerefresh.length; i++) {
+            closerefresh[i].addEventListener('mouseout', function () {
+                this.childNodes[1].style.display = 'none';
+                this.style.color = '#7E7E7E';
+                this.style.borderColor = '#7E7E7E';
+            })
+        }
+        //添加序号
+        function addnum(e) {
+            var number = images.children[0].children;
+            n = number.length + 1;
+            if (n < 10) {
+                var x = e.pageX;
+                var y = e.pageY;
+                console.log(x + ',' + y);
+                var num = document.createElement('li');
+                num.setAttribute('data-index', n);
+                // num.setAttribute('data-x', x);
+                // num.setAttribute('data-y', y);
+                images.appendChild(num);
+                images.children[0].appendChild(num);
+                num.className = 'num';
+                num.style.top = y - 55 + 'px';
+                num.style.left = x - 20 + 'px';
+                num.innerHTML = n;
+            }
+        }
+        var images = document.querySelector('.images');
+        images.addEventListener('click', addnum);
+        // 删除序号
+        function del(e) {
+            var number = images.children[0].children;
+            for (var i = 0; i < number.length; i++) {
+                number[i].addEventListener('click', function (e) {
+                    var index = e.target.getAttribute('data-index');
+                    for (var j = number.length - 1; j > index - 2; j--) {
+                        images.children[0].removeChild(number[j]);
+                    }
+                    e.stopPropagation();
+                })
+            }
+        }
+        images.addEventListener('click', del);
+
+        function positionJudge() {
+            // num.style.top = y - 55 + 'px';
+            // num.style.left = x - 20 + 'px';
+            var number = images.children[0].children;
+            var x = new Array(2);
+            var y = new Array(2);
+            x[0] = number[1].offsetLeft;
+            y[0] = number[1].offsetTop;
+            x[1] = number[0].offsetLeft;
+            y[1] = number[0].offsetTop;
+            if ((x[0] > 14 && x[0] < 14 + 50 && y[0] > 180 && y[0] < 180 + 50) && (x[1] > 115 && x[1] < 115 + 50 && y[1] > 5 && y[1] < 5 + 50)) {
+                return 0;
+            }
+            else {
+                return 1;
+            }
+        }
+        function positionJudge2() {
+            // num.style.top = y - 55 + 'px';
+            // num.style.left = x - 20 + 'px';
+            var number = images.children[0].children;
+            var x = new Array(4);
+            var y = new Array(4);
+            x[0] = number[0].offsetLeft;
+            y[0] = number[0].offsetTop;
+            x[1] = number[1].offsetLeft;
+            y[1] = number[1].offsetTop;
+            x[2] = number[2].offsetLeft;
+            y[2] = number[2].offsetTop;
+            x[3] = number[3].offsetLeft;
+            y[3] = number[3].offsetTop;
+            if ((x[0] > 132 && x[0] < 132 + 50 && y[0] > 110 && y[0] < 110 + 50) && (x[1] > 58 && x[1] < 58 + 50 && y[1] > 160 && y[1] < 160 + 50) && (x[2] > 6 && x[2] < 6 + 50 && y[2] > 70 && y[2] < 70 + 50) && (x[3] > 100 && x[3] < 100 + 50 && y[3] > 35 && y[3] < 35 + 50)) {
+                return 0;
+            }
+            else {
+                return 1;
+            }
+        }
+
+        // 确认
+        var ok = document.querySelector('#ok');
+        var fail = document.querySelector('#fail');
+        var vic = document.querySelector('#vic');
+        ok.onclick = function () {
+            var num = images.children[0].children;
+            if (flag) {
+                if (num.length != 2 || positionJudge()) {
+                    fail.className = 'fail';
+                    fail.innerHTML = '验证失败';
+                    setTimeout(function () {
+                        fail.innerHTML = '';
+                        fail.className = '';
+                    }, 2000)
+                }
+                else {
+                    fail.className = 'vic';
+                    fail.innerHTML = '验证成功';
+                    setTimeout(function () {
+                        fail.innerHTML = '';
+                        fail.className = '';
+                    }, 2000)
+                }
+                while (num.length != 0) {
+                    for (var i = 0; i < num.length; i++) {
+                        images.children[0].removeChild(num[i]);
+                    }
+                }
+            } else {
+                if (num.length != 4 || positionJudge2()) {
+                    fail.className = 'fail';
+                    fail.innerHTML = '验证失败';
+                    setTimeout(function () {
+                        fail.innerHTML = '';
+                        fail.className = '';
+                    }, 2000)
+                }
+                else {
+                    fail.className = 'vic';
+                    fail.innerHTML = '验证成功';
+                    setTimeout(function () {
+                        fail.innerHTML = '';
+                        fail.className = '';
+                    }, 2000)
+                }
+                while (num.length != 0) {
+                    for (var i = 0; i < num.length; i++) {
+                        images.children[0].removeChild(num[i]);
+                    }
+                }
+            }
+        }
+
+        // 关闭验证模块
+        var verifycode = document.querySelector('.verifycode');
+        var close = document.querySelector('.close');
+        close.addEventListener('click', function () {
+            verifycode.style.display = 'none';
+        })
+        // 刷新模块
+        var wordimg = document.querySelector('.wordimg');
+        var flag = 1;
+        var refresh = document.querySelector('.refresh');
+        refresh.addEventListener('click', function () {
+            var num = images.children[0].children;
+            while (num.length != 0) {
+                for (var i = 0; i < num.length; i++) {
+                    images.children[0].removeChild(num[i]);
+                }
+            }
+            if (flag) {
+                images.style.backgroundImage = 'url(img1.jpg)';
+                wordimg.style.backgroundImage = 'url(img1.jpg)';
+                flag = 0;
+            } else {
+                images.style.backgroundImage = 'url(img2.jpg)';
+                wordimg.style.backgroundImage = 'url(img2.jpg)';
+                flag = 1;
+            }
+        })
+    </script>
+</body>
+
+</html>

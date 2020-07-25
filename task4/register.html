@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+
+<body>
+    <p>
+        邮箱：<input type="text" id="email">
+    </p>
+    <p>
+        密码：<input type="text" id="psw">
+    </p>
+    <p>
+        验证码：<input type="text" id="checkcode"> <button id="get">获取验证码</button>
+    </p>
+    <p>
+        <button id="register">注册</button> <button id="login">登录</button>
+    </p>
+    <script>
+        function ajax(options) {
+            var xhr = new XMLHttpRequest();
+            var params = '';
+            for (var attr in options.data) {
+                params += attr + '=' + options.data[attr] + '&';
+            }
+            params = params.substr(0, params.length - 1);
+            if (options.type == 'get') {
+                options.url = options.url + '?' + params;
+            }
+
+            xhr.open(options.type, options.url);
+
+            if (options.type == 'post') {
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify(options.data))
+            } else {
+                xhr.send();
+            }
+
+            xhr.onload = function () {
+                var contentType = xhr.getResponseHeader('Content-Type');
+                var responseText = xhr.responseText;
+                if (contentType.includes('application/json')) {
+                    responseText = JSON.parse(responseText)
+                }
+                if (xhr.status == 200) {
+                    options.success(responseText)
+                } else {
+                    options.error(responseText)
+                }
+                options.judge(responseText);
+            }
+        }
+
+        var email = document.getElementById('email');
+        var checkcode = document.getElementById('checkcode');
+        var get = document.getElementById('get');
+        var register = document.getElementById('register');
+        var psw = document.getElementById('psw');
+        var login = document.getElementById('login');
+
+        get.addEventListener('click', function () {
+            if (email.value != '') {
+                ajax({
+                    type: 'get',
+                    url: 'http://120.24.93.68:8085/api/register/sendCheckCode',
+                    data: {
+                        "email": email.value,
+                    },
+                    success: function (data) {
+                        console.log('OK');
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        console.log('error');
+                        console.log(data);
+                    },
+                    judge: function (data) {
+                        if (data.code == 500) {
+                            alert('请输入邮箱');
+                        } else if (data.code == 1005) {
+                            email.value = "";
+                            alert('请输入正确邮箱');
+                        } else {
+                            alert('成功收到验证码,请输入验证码');
+                            var time = 180;
+                            get.disabled = true;
+                            var timer = setInterval(function () {
+                                if (time == 0) {
+                                    clearInterval(timer);
+                                    get.innerHTML = '获取验证码';
+                                    get.disabled = false;
+                                } else {
+                                    if (time > 59) {
+                                        get.innerHTML = '请' + Math.ceil(time / 60) + '分钟后重试';
+                                        time--;
+                                    }
+                                    else {
+                                        get.innerHTML = '请' + time + '秒后重试';
+                                        time--;
+                                    }
+                                }
+                            }, 1000)
+                        }
+                    }
+                })
+            } else {
+                alert('请输入邮箱')
+            }
+        })
+
+        register.addEventListener('click', function () {
+            if (email.value != '' && psw.value != '' & checkcode != '') {
+                ajax({
+                    type: 'post',
+                    url: 'http://120.24.93.68:8085/api/user/register',
+                    data: {
+                        "checkCode": checkcode.value,
+                        "email": email.value,
+                        "password": psw.value,
+                        "role": 0,
+                    },
+                    success: function (data) {
+                        console.log('OK');
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        console.log('error');
+                        console.log(data);
+                    },
+                    judge: function (data) {
+                        if (data.code == 500) {
+                            alert('请重新输入验证码或重新获取验证码')
+                        } else {
+                            alert('注册成功,请登录');
+                            location.href = 'login.html';
+                        }
+                    }
+                })
+            } else {
+                alert('请补全信息');
+            }
+
+        })
+
+        login.addEventListener('click', function () {
+            location.href = 'login.html'
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>
+        邮箱：<input type="text" id="email">
+    </p>
+    <p>
+        密码：<input type="password" id="psw"> <span style="cursor: default;">眼睛</span>
+    </p>
+    <p>
+        <button id="login">登录</button> <button id="register">注册</button>
+    </p>
+    <script>
+        var psw = document.getElementById('psw');
+        var eye = document.querySelector('#psw').nextElementSibling;
+        var register = document.getElementById('register');
+        var email = document.getElementById('email');
+        var psw = document.getElementById('psw');
+        var login = document.getElementById('login');
+
+        var flag = 1;
+        eye.onclick = function () {
+            if (flag) {
+                psw.type = 'text';
+                flag = 0;
+            } else {
+                psw.type = 'password';
+                flag = 1;
+            }
+        }
+
+        function ajax(options) {
+            var xhr = new XMLHttpRequest();
+            var params = '';
+            for (var attr in options.data) {
+                params += attr + '=' + options.data[attr] + '&';
+            }
+            params = params.substr(0, params.length - 1);
+            if (options.type == 'get') {
+                options.url = options.url + '?' + params;
+            }
+
+            xhr.open(options.type, options.url);
+
+            if (options.type == 'post') {
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify(options.data))
+            } else {
+                xhr.send();
+            }
+
+            xhr.onload = function () {
+                var contentType = xhr.getResponseHeader('Content-Type');
+                var responseText = xhr.responseText;
+                if (contentType.includes('application/json')) {
+                    responseText = JSON.parse(responseText)
+                }
+                if (xhr.status == 200) {
+                    options.success(responseText)
+                } else {
+                    options.error(responseText)
+                }
+                options.judge(responseText);
+            }
+        }
+
+        register.onclick = function () {
+            location.href = 'register.html'
+        }
+
+        login.addEventListener('click', function () {
+            if (psw.value != '' && email.value != '') {
+                ajax({
+                    type: 'post',
+                    url: 'http://120.24.93.68:8085/api/login',
+                    data: {
+                        "email": email.value,
+                        "password": psw.value,
+                    },
+                    success: function (data) {
+                        console.log('OK');
+                        console.log(data);
+                    },
+                    error: function (data) {
+                        console.log('error');
+                        console.log(data);
+                    },
+                    judge: function (data) {
+                        if (data.code == 200) {
+                            alert('登录成功');
+                            location.href = 'OK.html';
+                        } else if (data.code == 1001) {
+                            alert('邮箱或者密码错误');
+                        }
+                    }
+                })
+            } else if (psw.value == '' && email.value != '') {
+                alert('请输入密码')
+            } else if (email.value == '' && psw.value != '') {
+                alert('请输入邮箱')
+            } else {
+                alert('请输入登录信息')
+            }
+        })
+
+    </script>
+</body>
+
+</html>

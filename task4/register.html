@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>注册页面</title>
+		<style type="text/css">
+			.email,.password,.checkCode{
+				display: block;
+				outline: none;
+				margin: 20px auto;
+				height: 30px;
+				width: 400px;
+				border-radius: 5px;
+				border: 1px #CCCCCC solid;
+			}
+			
+			.zhuce,.backTo{
+			margin-left: 45%;
+			margin-top: 10px;
+			float: left;
+			display: block;
+			width: 150px;
+			height: 25px;
+			cursor: pointer;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<form action="">
+			<input type="text" id="email" class="email" placeholder="填入和你注册一样的邮箱">
+			<input type="tel" id="password" class="password" placeholder="请填入你想要的密码">
+			<input type="tel" id="checkCode" class="checkCode" placeholder="请输入验证码">
+			<input type="button" id="zhuce" class="zhuce" value="注册!">
+			<input type="button" id="backTo" class="backTo" value="返回上一页">
+		</form>
+		<script type="text/javascript">
+			var zhuce = document.getElementById('zhuce');//获取注册页的注册按钮
+			var email = document.getElementById('email');//获取注册页的邮箱框框元素
+			var password = document.getElementById('password');//获取注册页的密码框元素
+			var checkCode = document.getElementById('checkCode');//获取验证码框框元素
+			var backToLastPage = document.getElementById('backTo');
+			
+			zhuce.onclick = function(ev){
+				if(email.value.length === 0 || password.value.length === 0)
+				{
+					alert('你的密码或邮箱为空!');
+				}
+				else
+				{	
+					myAjax("POST","http://120.24.93.68:8085/api/user/register",
+					{
+						"checkCode":""+checkCode.value+"",
+						"email":""+email.value+"",
+						"password":""+password.value+"",
+						"role": "0"
+					},
+					function(xhr){
+						var str = xhr.responseText;
+						var myObj = JSON.parse(str);
+						console.log(myObj);
+						alert('注册成功!');
+					},
+					function(xhr){
+						alert('注册失败!');
+					})
+				}
+			}
+			
+			backToLastPage.onclick = function(){
+				window.location.href = 'task4.html';
+			}
+			
+			//对象转字符串
+			function objToStr(obj){
+				obj.time = new Date().getTime();
+				var res = [];
+				for(var key in obj){	
+					res.push(key+"="+obj[key]);
+				}
+				return res.join("&");
+			}
+			
+			//封装Ajax函数
+			function myAjax(type ,url , obj, success, error){
+				//将对象转换成为字符串
+				var str = objToStr(obj);
+				//创建一个异步对象
+				var xmlhttp , timer;
+				
+				if(window.XMLHttpRequest){   //IE7+ , 火狐 , 谷歌 等浏览器
+					xmlhttp = new XMLHttpRequest();
+				}
+				else{	//兼容IE6,IE5
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				
+				//判断请求方式并设置请求
+				if(type === "GET"){
+				//发送GET请求
+					xmlhttp.open(type, url+"?"+str)
+					xmlhttp.send();
+				}
+				else{
+					xmlhttp.open(type,url,true);
+					xmlhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
+					xmlhttp.send(JSON.stringify(obj));	
+				}
+				
+				//监听状态变化
+				xmlhttp.onreadystatechange = function(e){
+					if(xmlhttp.readyState === 4){	
+						if(xmlhttp.status === 200 ){
+							success(xmlhttp);
+						}
+						else{
+							error(xmlhttp);
+						}
+					}
+				}
+			}
+			
+		</script>
+	</body>
+</html>

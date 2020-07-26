@@ -1,0 +1,19 @@
+.userPwd,.userName,.vertify{
+	display: block;
+	outline: none;
+	margin: 20px auto;
+	height: 30px;
+	width: 400px;
+	border-radius: 5px;
+	border: 1px #CCCCCC solid;
+}
+
+.login,.register,.getVertify{
+margin-left: 45%;
+margin-top: 10px;
+float: left;
+display: block;
+width: 150px;
+height: 25px;
+cursor: pointer;
+}

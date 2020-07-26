@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta charset="utf-8">
+		<title>按字顺序登录</title>
+		<link rel="stylesheet" href="yanzheng.css" type="text/css">
+	</head>
+	<body>
+		<input type="submit" value="登录" class="login" id="login">
+		
+		<!--点击按钮出现验证码-->
+		<div class="geetest" id="geetest">
+			<div class="geetest_head">
+				<div class="geetest_tip_content" >请在下图<span class="geetest_mark">依次</span>点击</div>
+				<div class="geetest_tip_img" id="geetest_tip_img"> 
+				</div>
+			</div>
+			<div class="geetest_image" id="imagesBox">
+				<img src="imgs/background.jpg" class="geetest_image_img" id="backgroundImg">
+			</div>
+			<div class="geetest_panel">
+				<div class="geetest_panel_commit" id="confirm">确认</div>
+			</div>
+		</div>
+		
+		<!--外联JS标签-->
+		<script src="yanzheng.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

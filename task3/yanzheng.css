@@ -1,0 +1,77 @@
+.login{
+	width: 186px;
+	height: 38px;
+	border: 1px solid #0381aa;
+	color: #fff;
+	background-color: #00a7de;
+	text-align: center;
+	line-height: 38px;
+	outline: none;
+	position: absolute;
+	cursor: pointer;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%);
+}
+
+.geetest{
+	width: 272px;
+	height: 348px;
+	border: 1px solid gainsboro;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background-color: white;
+	display: none;
+}
+
+.geetest_head{
+	width: 270px;
+	height: 40.5px;
+	text-align: left;
+}
+
+.geetest_tip_content{
+	line-height: 20px;
+	height: 20px;
+	display: inline-block;
+	vertical-align: top;
+	font-size:14px;
+}
+.geetest_mark{
+	color:#1c75e4;
+}
+.geetest_tip_img{
+	display: inline-block;
+	background: url(imgs/duoweiguo.jpg) no-repeat;
+	width: 116px;
+	height: 40px;
+	margin-left: 10px;
+}
+
+.geetest_image{
+	height: 270px;
+	width: 262px;
+	position: relative;
+	overflow: hidden;
+	
+}
+.geetest_image_img{
+	right: 0px;
+	top: 0px;
+	width: 100%;
+	height: 112%;
+}
+.geetest_panel_commit{
+	color: #ffffff;
+	width: 95px;
+	height: 20px;
+	background-color: deepskyblue;
+	line-height: 20px;
+	text-align: center;
+	letter-spacing: 2px;
+	float: right;
+	margin-right: 20px;
+	cursor: pointer;
+};
+

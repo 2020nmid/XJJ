@@ -1,0 +1,2 @@
+1.自动打包直接引入 /bundle.js会找不到文件 需要http://localhost:8081/bundle.js 还不知道原因。
+2.学习了些许jquery

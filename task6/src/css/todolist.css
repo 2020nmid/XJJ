@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+input[type="checkbox"] {
+    cursor: pointer;
+}
+body {
+    background-color: beige;
+}
+/* 左边输入事件 */
+.left,
+.right {
+    float: left;
+    width: 50%;
+    background-color: azure;
+}
+.todoadd {
+    position: relative;
+    width: 60%;
+    height: 15%;
+    background-color: pink;
+    margin: 30% auto;
+    text-align: center;
+    padding: 5% 0;
+    border-radius: 5px;
+    box-shadow: -1px 1px 4px 1px rgba(0, 0, 0, 0.3);
+}
+.todoadd .clear {
+    display: block;
+    position: absolute;
+    bottom: 1px;
+    right: -42px;
+    color: deeppink;
+    background-color: pink;
+    padding: 2px 6px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+}
+.todoadd h1 {
+    user-select:none;
+    color: deeppink;
+}
+.todoadd .text {
+    margin-top: 5%;
+}
+.todoadd .text #text {
+    width: 50%;
+    height: 20px;
+    outline: none;
+    border: 0;
+    padding: 5px;
+    border-radius: 5px;
+}
+.todoadd .text .add {
+    position: relative;
+    top: 3px;
+    font-size: 25px;
+    color: deeppink;
+}
+.right {
+    background-color: beige;
+}
+/* .right ul li input,
+.right ul li p,
+.right ul li a {
+    position: absolute;
+} */
+.right ul {
+    margin-left: 10%;
+}
+.right ul li {
+    position: relative;
+    margin-top: 5%;
+    width: 90%;
+    height: 50px;
+    background-color: sandybrown;
+    border-radius: 5px;
+    line-height: 50px;
+    font-size: 20px;
+    color: maroon;
+    box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.4);
+}
+.check {
+    position: absolute;
+    top: 14px;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid orange;
+    background-color: #fff;
+    /* background-color: gainsboro; */
+    border-radius: 3px;
+    outline: none;
+    appearance:none;
+    text-align: center;
+}
+.right ul li p {
+    position: absolute;
+    left: 40px;
+    white-space: nowrap;
+}
+.right ul li a {
+    position: absolute;
+    top: -2px;
+    right: 15px;
+    color: chocolate;
+    font-size: 26px;
+}
+.right .donelist li {
+    box-shadow: inset 4px -5px 4px 2px rgba(0, 0, 0, 0.2);
+}
+.right .donelist li .check::after{
+    /* visibility: hidden; */
+    content: '√';
+    position: relative;
+    top: 3px;
+    color: maroon;
+}
+.right .donelist li .check {
+    background-color: gainsboro;
+}

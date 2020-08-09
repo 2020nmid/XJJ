@@ -1,0 +1,95 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color:#cccccc ;
+}
+
+nav{
+    width: 100%;
+    height: 60px;
+    background:rgba(47, 47, 47, 0.98);
+}
+
+input{
+    outline: none;
+}
+
+nav span{
+    font-size: 30px;
+    color: seashell;
+    float: left;
+    height: 60px;
+    line-height: 60px;
+    margin-left: 20px;
+}
+
+nav form{
+    float: left;
+}
+
+.toDoContent{
+    margin: 10px 0px 10px 300px;
+    height: 30px;
+    width: 400px;
+    border-radius: 5px;
+    border: none;
+}
+
+.clearButton,.addButton{
+    height: 30px;
+    cursor: pointer;
+    margin-left: 50px;
+    border: none;
+    border-radius: 3px;
+    color: white;
+}
+
+.clearButton{
+    margin-left: 0;
+    background-color: #cc3333;
+}
+
+.addButton{
+    background-color: #FF6600;
+}
+
+footer span{
+    display: block;
+    margin: 0 auto;
+    height: 30px;
+    line-height: 30px;
+    width: 200px;
+    color: white;
+    font-size: 14px;
+}
+
+footer{
+    width: 100%;
+    height: 30px;
+}
+
+.haveDoneBtn{
+    float:right;
+    color: white;
+    background-color: #99cc99;
+    border: none;
+    height: 26px;
+    cursor: pointer;
+}
+
+.deleteBtn{
+    border-radius: 50%;
+    background-color: #cc3333;
+    color: white;
+    cursor: pointer;
+    float: right;
+    border: none;
+    margin: 4px 20px;
+}
+
+li{
+    width: 1200px;
+    height: 30px;
+    border-bottom: 1px white solid;
+    margin-top: 20px;
+}

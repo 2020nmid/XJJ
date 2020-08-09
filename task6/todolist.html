@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="todolist.css">
+</head>
+<body>
+   <nav>
+       <span>ToDoList</span>
+       <form>
+        <input type="text" placeholder="添加事件" class="toDoContent" id="content">
+        <input type="button" class="addButton" value="add" id="add">
+        <input type="button" value="清空所有" class="clearButton" id="clear">
+       </form>
+   </nav>
+   <div class="isDoing">
+       <h2>正在进行</h2>
+       <ul id="isDoing"> </ul>
+   </div>
+   <div class="haveDone">
+       <h2>已经完成</h2>
+       <ul id="haveDone"></ul>
+   </div>
+   <footer>
+       <span>By:xqnjkycx</span>
+   </footer>
+   <script src="todolist.js"></script>
+</body>
+</html>
